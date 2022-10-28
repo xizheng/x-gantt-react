@@ -83,6 +83,16 @@ export const ganttDateRange = (
     if (task.end > newEndDate) {
       newEndDate = task.end;
     }
+    if (task.children) {
+      for (const subTask of task.children) {
+        if (subTask.start < newStartDate) {
+          newStartDate = subTask.start;
+        }
+        if (subTask.end > newEndDate) {
+          newEndDate = subTask.end;
+        }
+      }
+    }
   }
   switch (viewMode) {
     case ViewMode.Year:

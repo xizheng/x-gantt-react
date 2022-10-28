@@ -65,6 +65,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   onDelete,
   onSelect,
   onExpanderClick,
+  formatter,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
@@ -92,7 +93,15 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   const [failedTask, setFailedTask] = useState<BarTask | null>(null);
 
   const svgWidth = dateSetup.dates.length * columnWidth;
-  const ganttFullHeight = barTasks.length * rowHeight;
+  const ganttFullHeight = useMemo(() => {
+    let count = 0;
+    barTasks.forEach(item => {
+      if (!item?.group) {
+        count += 1;
+      }
+    });
+    return count * rowHeight;
+  }, [barTasks, rowHeight]);
 
   const [scrollY, setScrollY] = useState(0);
   const [scrollX, setScrollX] = useState(-1);
@@ -120,9 +129,11 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
       }
     }
     setDateSetup({ dates: newDates, viewMode });
-    setBarTasks(
-      convertToBarTasks(
-        filteredTasks,
+
+    // formatter
+    const convert = (list: Task[]) => {
+      return convertToBarTasks(
+        list,
         newDates,
         columnWidth,
         rowHeight,
@@ -141,8 +152,14 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         milestoneBackgroundColor,
         milestoneBackgroundSelectedColor
       )
-    );
+    };
+    if (formatter?.formatTaskItems) {
+      setBarTasks(formatter.formatTaskItems(filteredTasks, { convert }));
+    } else {
+      setBarTasks(convert(filteredTasks));
+    }
   }, [
+    formatter,
     tasks,
     viewMode,
     preStepsCount,

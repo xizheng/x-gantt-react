@@ -30,6 +30,8 @@ export interface Task {
   dependencies?: string[];
   hideChildren?: boolean;
   displayOrder?: number;
+  children: Task[] | undefined;
+  group: string | undefined;
 }
 
 export interface EventOption {
@@ -137,6 +139,7 @@ export interface StylingOption {
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
   }>;
+  formatter?: any;
 }
 
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
