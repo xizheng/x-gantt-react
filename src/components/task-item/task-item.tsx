@@ -131,7 +131,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       {taskItem}
       {
         health ? (
-          <circle cx={health.x} cy={task.y + taskHeight * 0.5} r={HEALTH_R} stroke-width="0" fill={health.color} />
+          <circle cx={health.x} cy={task.y + taskHeight * 0.5} r={HEALTH_R} strokeWidth="0" fill={health.color} />
         ) : null
       }
       {
