@@ -424,6 +424,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     columnWidth,
     fontFamily,
     fontSize,
+    todayColor,
     rtl,
   };
   const barProps: TaskGanttContentProps = {

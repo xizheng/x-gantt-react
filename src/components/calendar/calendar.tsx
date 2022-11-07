@@ -20,6 +20,7 @@ export type CalendarProps = {
   columnWidth: number;
   fontFamily: string;
   fontSize: string;
+  todayColor?: string;
 };
 
 export const Calendar: React.FC<CalendarProps> = ({
@@ -31,6 +32,7 @@ export const Calendar: React.FC<CalendarProps> = ({
   columnWidth,
   fontFamily,
   fontSize,
+  todayColor,
 }) => {
   const getCalendarValuesForYear = () => {
     const topValues: ReactChild[] = [];
@@ -180,12 +182,18 @@ export const Calendar: React.FC<CalendarProps> = ({
         .getDate()
         .toString()}`;
 
+      const style = date.toDateString() === new Date().toDateString() ? {
+        fill: todayColor,
+        fontWeight: "bold",
+      } : {};
+
       bottomValues.push(
         <text
           key={date.getTime()}
           y={headerHeight * 0.8}
           x={columnWidth * i + columnWidth * 0.5}
           className={styles.calendarBottomText}
+          style={style}
         >
           {bottomValue}
         </text>
