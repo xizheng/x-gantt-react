@@ -115,6 +115,7 @@ export interface StylingOption {
   arrowColor?: string;
   arrowIndent?: number;
   todayColor?: string;
+  todayStyle?: string;
   TooltipContent?: React.FC<{
     task: Task;
     fontSize: string;

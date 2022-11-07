@@ -10,6 +10,7 @@ export type GridBodyProps = {
   rowHeight: number;
   columnWidth: number;
   todayColor: string;
+  todayStyle: string;
   rtl: boolean;
 };
 export const GridBody: React.FC<GridBodyProps> = ({
@@ -19,6 +20,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   svgWidth,
   columnWidth,
   todayColor,
+  todayStyle,
   rtl,
 }) => {
   let y = 0;
@@ -87,7 +89,13 @@ export const GridBody: React.FC<GridBodyProps> = ({
           "millisecond"
         ).getTime() >= now.getTime())
     ) {
-      today = (
+      const lineX = tickX + columnWidth / 2 - 2 / 2;
+      today = todayStyle === 'line' ? (
+        <line x1={ lineX } y1="0" x2={ lineX } y2={y} style={{
+          stroke: todayColor,
+          strokeWidth: 2,
+        }} />
+      ) : (
         <rect
           x={tickX}
           y={0}
