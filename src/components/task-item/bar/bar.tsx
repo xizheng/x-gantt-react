@@ -74,7 +74,7 @@ export const Bar: React.FC<TaskItemProps> = ({
       </g>
       {
         task.conflict ? (
-          <text x={task.x1 + 16} y={task.y} fill="red" fontSize={24} text-anchor="middle" transform={`rotate(-15 ${task.x1  + 16}, ${task.y})`}>⚠️</text>
+          <text x={task.x1 + 16} y={task.y} fill="red" fontSize={24} textAnchor="middle" transform={`rotate(-15 ${task.x1  + 16}, ${task.y})`}>⚠️</text>
         ) : null
       }
     </g>
