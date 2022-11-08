@@ -22,6 +22,7 @@ export type TaskItemProps = {
     textPosition?: string;
     healthColor?: {};
   };
+  conflict?: {},
   onEventStart: (
     action: GanttContentMoveAction,
     selectedTask: BarTask,
