@@ -29,6 +29,7 @@ export const Bar: React.FC<TaskItemProps> = ({
         height={task.height}
         progressX={task.progressX}
         progressWidth={task.progressWidth}
+        progressType={task.progressType}
         barCornerRadius={task.barCornerRadius}
         styles={task.styles}
         isSelected={isSelected}

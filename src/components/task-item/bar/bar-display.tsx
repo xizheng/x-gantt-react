@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import style from "./bar.module.css";
 
 type BarDisplayProps = {
@@ -10,6 +10,7 @@ type BarDisplayProps = {
   /* progress start point */
   progressX: number;
   progressWidth: number;
+  progressType?: string;
   barCornerRadius: number;
   styles: {
     backgroundColor: string;
@@ -27,6 +28,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
   isSelected,
   progressX,
   progressWidth,
+  progressType,
   barCornerRadius,
   styles,
   onMouseDown,
@@ -38,6 +40,23 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
   const getBarColor = () => {
     return isSelected ? styles.backgroundSelectedColor : styles.backgroundColor;
   };
+
+  const progress = useMemo(() => {
+    if (progressType === 'DELAY') {
+      return {
+        x: progressX + progressWidth,
+        width: width - progressWidth,
+        y,
+        height,
+      };
+    }
+    return {
+      x: progressX,
+      width: progressWidth,
+      y,
+      height,
+    };
+  }, [progressX, width, progressWidth, y, height, progressType]);
 
   return (
     <g onMouseDown={onMouseDown}>
@@ -52,10 +71,10 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         className={style.barBackground}
       />
       <rect
-        x={progressX}
-        width={progressWidth}
-        y={y}
-        height={height}
+        x={progress.x}
+        width={progress.width}
+        y={progress.y}
+        height={progress.height}
         ry={barCornerRadius}
         rx={barCornerRadius}
         fill={getProcessColor()}
